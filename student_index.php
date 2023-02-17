@@ -20,7 +20,7 @@ $id=$_SESSION['id'];
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>StudentAndFacultyClearance</title>
+    <title>Student Clearance</title>
 
     <!-- Custom fonts for this template-->
     <link href="./assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -44,7 +44,7 @@ $id=$_SESSION['id'];
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SEKU STUDENT</div>
+                <div class="sidebar-brand-text mx-3">STUDENT PANEL</div>
             </a>
 
             <!-- Divider -->
@@ -267,7 +267,7 @@ $id=$_SESSION['id'];
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="student_logout.php">Logout</a>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@ include('../shared/connection.php');
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-<script src="../jquery-3.2.1.min.js"></script>
+<script src="../js/jquery-3.2.1.min.js"></script>
 <script>
     // var password = document.getElementById("hellooo").value;
     // var password = document.getElementById("first_name").value;
@@ -120,11 +120,6 @@ include('../shared/connection.php');
                 <a class="nav-link" href="student.php">
                     <i class="fas fa-fw fa-user-graduate"></i>
                     <span>Student</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="faculty.php">
-                    <i class="fas fa-fw fa-chalkboard-teacher"></i>
-                    <span>Faculty</span></a>
             </li>
 
             <li class="nav-item">
@@ -340,7 +335,7 @@ include('../shared/connection.php');
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../index.php">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>

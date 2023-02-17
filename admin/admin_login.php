@@ -28,7 +28,7 @@
         var xml=new XMLHttpRequest();
         xml.onreadystatechange=function(){
 
-            document.getElementById("load").innerHTML="<img src='../images/blue.gif' width='70px'>";
+            document.getElementById("load").innerHTML="<img src='../assets/img/blue.gif' width='70px'>";
             if(xml.readyState==4 && xml.status==200){
                 var thevalue= xml.responseText;
                 setTimeout(function () {

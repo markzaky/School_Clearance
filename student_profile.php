@@ -46,7 +46,7 @@ $id=$_SESSION['id'];
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">ADMIN</div>
+                <div class="sidebar-brand-text mx-3">STUDENT PANEL</div>
             </a>
 
             <!-- Divider -->
@@ -165,7 +165,7 @@ $id=$_SESSION['id'];
                                 <div class="col-xl-12 col-md-12 mb-4">
                                     <h5 class="h5 mb-2 text-gray-800"><i class="fas fa-user"></i> Profile Information</h5>
                                     </div>
-                                <div class="col-xl-4 col-md-4 mb-4">
+                                <!-- <div class="col-xl-4 col-md-4 mb-4">
                                         <label class="text-dark">First name</label>
                                         <input type="text" class="form-control" placeholder="ex. John">
                                     </div>
@@ -176,10 +176,10 @@ $id=$_SESSION['id'];
                             <div class="col-xl-4 col-md-4 mb-4">
                                     <label class="text-dark">Last name</label>
                                     <input type="text" class="form-control" placeholder="ex. Doe">
-                                </div>
+                                </div> -->
                         <div class="col-xl-6 col-md-6 mb-4">
                                 <label class="text-dark">Contact</label>
-                                <input type="text" class="form-control" placeholder="ex. 09878678567">
+                                <input type="text" class="form-control" placeholder="ex. 07878678567">
                             </div>
                             <div class="col-xl-6 col-md-6 mb-4">
                                     <label class="text-dark">Email</label>
@@ -187,16 +187,19 @@ $id=$_SESSION['id'];
                                 </div>
                                 
                                 <div class="col-xl-12 col-md-12 mb-4">
-                                    <h5 class="h5 mb-2 text-gray-800"><i class="fas fa-user-lock"></i> Account Information</h5>
+                                    <h5 class="h5 mb-2 text-gray-800"><i class="fas fa-user-lock"></i> Reset Password</h5>
                                     </div>
                             <div class="col-xl-6 col-md-6 mb-4">
-                                <label class="text-dark">Username</label>
-                                <input type="text" class="form-control" placeholder="Username">
+                                <label class="text-dark">Password</label>
+                                <input type="password" class="form-control" placeholder="Enter New Password">
                             </div>
                             
                             <div class="col-xl-6 col-md-6 mb-4">
-                                <label class="text-dark">Password</label>
-                                <input type="text" class="form-control" placeholder="**********">
+                                <label class="text-dark">Repeat Password</label>
+                                <input type="password" class="form-control" placeholder="Re-enter Password">
+                            </div>
+                            <div class="col-xl-6 col-md-6 mb-4">
+                            <button class="btn btn-primary" type="button" data-dismiss="modal">Save Changes</button>
                             </div>
                         </div>
                     </form>
@@ -234,7 +237,7 @@ $id=$_SESSION['id'];
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="student_logout.php">Logout</a>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
                 </div>
             </div>
         </div>

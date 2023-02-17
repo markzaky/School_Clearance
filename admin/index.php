@@ -19,7 +19,7 @@ $user = $_SESSION['admin_username']
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>StudentAndFacultyClearance</title>
+    <title>Student Clearance</title>
 
     <!-- Custom fonts for this template-->
     <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -83,11 +83,6 @@ $user = $_SESSION['admin_username']
                 <a class="nav-link" href="student.php">
                     <i class="fas fa-fw fa-user-graduate"></i>
                     <span>Student</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="faculty.php">
-                    <i class="fas fa-fw fa-chalkboard-teacher"></i>
-                    <span>Faculty</span></a>
             </li>
 
             <li class="nav-item">

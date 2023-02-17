@@ -10864,18 +10864,21 @@ a:focus {
   background: url("../img/logo.png");
   background-position: center;
   background-size: cover;
+  background-size: contain;
 }
 
 .bg-register-image {
   background: url("../img/logo.png");
   background-position: center;
   background-size: cover;
+  background-size: contain;
 }
 
 .bg-password-image {
   background: url("../img/logo.png");
   background-position: center;
   background-size: cover;
+  background-size: contain;
 }
 
 form.user .custom-checkbox.small label {

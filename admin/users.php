@@ -74,11 +74,6 @@
                     <i class="fas fa-fw fa-user-graduate"></i>
                     <span>Student</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="faculty.php">
-                    <i class="fas fa-fw fa-chalkboard-teacher"></i>
-                    <span>Faculty</span></a>
-            </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="deliverable.php">

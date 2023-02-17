@@ -19,7 +19,7 @@ $id=$_SESSION['id'];
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>StudentAndFacultyClearance</title>
+    <title>Student Clearance</title>
 
     <!-- Custom fonts for this template-->
     <link href="./assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -29,7 +29,7 @@ $id=$_SESSION['id'];
     <link href="./assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-<script src="jquery-3.2.1.min.js"></script>
+<script src="./js/jquery-3.2.1.min.js"></script>
 <script>
                 $(function(){
                     var user_id="<?php echo $_SESSION['id'];?>";
@@ -120,7 +120,7 @@ $id=$_SESSION['id'];
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SEKU STUDENT</div>
+                <div class="sidebar-brand-text mx-3">STUDENT PANEL</div>
             </a>
 
             <!-- Divider -->
@@ -217,7 +217,7 @@ $id=$_SESSION['id'];
                                     Activity Log
                                 </a> -->
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="student_logout.php" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="logout.php" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -379,7 +379,7 @@ $id=$_SESSION['id'];
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="student_logout.php">Logout</a>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
                 </div>
             </div>
         </div>
