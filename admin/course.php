@@ -23,7 +23,32 @@ include('../shared/connection.php');
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<script src="../js/jquery-3.2.1.min.js"></script>
 
+<script>
+
+    $(function(){
+        
+        // Add New Course
+        $("#addCourse").click(function(){
+            
+            var course_code = document.addCourse.course_code.value;
+            var course_name = document.addCourse.course_name.value;
+
+            $.ajax({
+                type:"post",
+                url:"../operations/admin_operation.php",
+                data:{operation_id:3,name:course_name, code:course_code},
+                success:function(result){
+                    alert(result);
+                    window.location.href = ("course.php");
+
+                }
+            });
+
+        })
+    })
+</script>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -178,7 +203,7 @@ include('../shared/connection.php');
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-certificate"></i> Courses</h1>
-                                    <a href="#" class="btn btn-primary btn-icon-split float-right">
+                                    <a href="#" data-toggle="modal" data-target="#AddCourseModal" class="btn btn-primary btn-icon-split float-right">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-plus"></i>
                                         </span>
@@ -272,7 +297,36 @@ include('../shared/connection.php');
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="AddCourseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Department</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form action="" name='addCourse'>
+                <div class="modal-body">
+                
+                    <input id='course_name' type="text" class="form-control bg-light border-0 small" placeholder="Course Name"
+                        aria-label="Search" aria-describedby="basic-addon2">
+                        <br>
+                    <input id='course_code' type="text" class="form-control bg-light border-0 small" placeholder="Course Code eg BCS"
+                        aria-label="Search" aria-describedby="basic-addon2">
+                        <br>
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button  id='addCourse'  class="btn btn-primary" type="button" >Add Course</button>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- Bootstrap core JavaScript-->
     <script src="../assets/vendor/jquery/jquery.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

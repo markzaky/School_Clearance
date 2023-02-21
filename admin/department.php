@@ -26,6 +26,30 @@ include('../shared/connection.php');
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script>
+
+    $(function(){
+        
+        // Add a new department
+        $("#addDepartment").click(function(){
+            // alert(course);
+            var name = document.addDepartment.department_name.value;
+
+            $.ajax({
+                type:"post",
+                url:"../operations/admin_operation.php",
+                data:{operation_id:2,name:name},
+                success:function(result){
+                    alert(result);
+                    window.location.href = ("department.php");
+
+                }
+            });
+
+        })
+    })
+</script>
 
 <body id="page-top">
 
@@ -151,7 +175,7 @@ include('../shared/connection.php');
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <!-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -163,7 +187,7 @@ include('../shared/connection.php');
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
                                 </a>
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div> -->
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -181,7 +205,7 @@ include('../shared/connection.php');
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-building"></i> Department</h1>
-                                    <a href="#" class="btn btn-primary btn-icon-split float-right">
+                                    <a href="#" data-toggle="modal" data-target="#AddDepartmentModal" class="btn btn-primary btn-icon-split float-right">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-plus"></i>
                                         </span>
@@ -266,6 +290,34 @@ include('../shared/connection.php');
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="AddDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Department</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form action="" name='addDepartment'>
+                <div class="modal-body">
+                
+                    <input id='department_name' type="text" class="form-control bg-light border-0 small" placeholder="Department Name"
+                        aria-label="Search" aria-describedby="basic-addon2">
+                        
+                        <br>
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button  id='addDepartment'  class="btn btn-primary" type="button" >Add Department</button>
+                        
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -1,3 +1,10 @@
+<?php
+include('../shared/connection.php');
+// if(!isset($_SESSION['admin_username'])){
+//     header("location:admin_login.php");
+//     exit();
+// }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +26,36 @@
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script>
 
+    $(function(){
+        
+        // Add department user
+        $("#addUser").click(function(){
+
+            var first_name = document.addUser.first_name.value;
+            var last_name = document.addUser.last_name.value;
+            var phone = document.addUser.phone_no.value;
+            var email = document.addUser.email_add.value;
+            var department = document.addUser.department.value;
+
+            $.ajax({
+                type:"post",
+                url:"../operations/admin_operation.php",
+                data:{operation_id:4,
+                    first_name:first_name, last_name:last_name, phone:phone, email:email, department:department},
+                success:function(result){
+
+                    alert(result);
+                    // window.location.href = ("users.php");
+
+                }
+            });
+
+        })
+    })
+</script>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -144,7 +180,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <!-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -156,7 +192,7 @@
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
                                 </a>
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div> -->
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -174,7 +210,7 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-user-lock"></i> Users</h1>
-                                    <a href="#" class="btn btn-primary btn-icon-split float-right">
+                                    <a href="#" data-toggle="modal" data-target="#AddUserModal" class="btn btn-primary btn-icon-split float-right">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-plus"></i>
                                         </span>
@@ -188,49 +224,59 @@
                                         <tr>
                                             <th>Department</th>
                                             <th>Assigned Personnel</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
                                             <th>Account Status</th>
-                                            <th>Action</th>
+                                            <!-- <th>Action</th> -->
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Department</th>
                                             <th>Assigned Personnel</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
                                             <th>Account Status</th>
-                                            <th>Action</th>
+                                            <!-- <th>Action</th> -->
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>Department 1</td>
-                                            <td>Garrett Winters</td>
-                                            <td><span class="badge bg-success text-white-50">Active</span></td>
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Department 2</td>
-                                            <td>Ashton Cox</td>
-                                            <td><span class="badge bg-success text-white-50">Active</span></td>
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Department 3</td>
-                                            <td>Charde Marshall</td>
-                                            <td><span class="badge bg-danger text-white-50">Inactive</span></td>
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Department 4</td>
-                                            <td>Cedric Kelly</td>
-                                            <td><span class="badge bg-danger text-white-50">Inactive</span></td>
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Department 5</td>
-                                            <td>Quinn Flynn</td>
-                                            <td><span class="badge bg-success text-white-50">Active</span></td>
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
+                                    <?php
+                                        
+                                        $sql = "SELECT * FROM `tbl_department_user`  \n"
+                                            . "ORDER BY `tbl_department_user`.`department_user_id` ASC;";
+                                        
+                                            $records=mysqli_query($con,$sql);
+                                        
+                                            while($user=mysqli_fetch_assoc($records)){
+                                                $id = $user['department_user_id'];
+                                                $department_id = $user['department_id'];
+                                                $query=mysqli_query($con,"SELECT * FROM tbl_department WHERE department_id='$department_id'");
+                                                $row=mysqli_fetch_assoc($query);
+                                                $department_name = $row['department_name'];
+                                                $assigned_name = $user['assigned_personnel'];
+                                                $status = $user['account_status'];
+                                                $email = $user['email'];
+                                                $phone = $user['phone_number'];
+                                                echo"<tr>
+                                                <td>$department_name</td>
+                                                <td>$assigned_name</td>
+                                                <td>$email</td>
+                                                <td>$phone</td>
+                                                ";
+                                                if($status == 0){
+                                                    echo"<td><span class='badge bg-success text-white-50'>Active</span></td>";
+                                                }
+                                                else{
+                                                    echo" <td><span class='badge bg-danger text-white-50'>Inactive</span></td>";
+                                                };
+                                                echo"
+                                                </tr>";
+                                            };
+                                        ?>
+                                        
+                                            <!-- <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td> -->
+
                                     </tbody>
                                 </table>
                             </div>
@@ -268,8 +314,57 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../index.php">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="AddUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Department User</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form action="" name='addUser'>
+                <div class="modal-body">
+                
+                    <input id='first_name' type="text" class="form-control bg-light border-0 small" placeholder="First Name"
+                        aria-label="Search" aria-describedby="basic-addon2">
+                        <br>
+                    <input id='last_name' type="text" class="form-control bg-light border-0 small" placeholder="Last Name"
+                        aria-label="Search" aria-describedby="basic-addon2">
+                        <br>
+                    <input id='phone_no' type="text" class="form-control bg-light border-0 small" placeholder="Phone Number"
+                        aria-label="Search" aria-describedby="basic-addon2">
+                        <br>
+                    <input id='email_add' type="text" class="form-control bg-light border-0 small" placeholder="Email"
+                        aria-label="Search" aria-describedby="basic-addon2">
+                        <br>
+                        <select id="department" class="form-control bg-light border-0 small" >
+                        <?php          
+                            $sql = "SELECT * FROM `tbl_department`  \n"
+                                . "ORDER BY `tbl_department`.`department_name` ASC;";
+                            $department_records=mysqli_query($con,$sql);
+                                        
+                            while($department_select=mysqli_fetch_assoc($department_records)){
+                                $department_id = $department_select['department_id'];
+                                $department_description = $department_select['department_name'];
+                                echo "<option value='$department_id'>$department_description</option>";
+                            };
+                            ?>
+                           
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button  id='addUser'  class="btn btn-primary" type="button" >Add User</button>
+                        
+                    </div>
+                </form>
             </div>
         </div>
     </div>
