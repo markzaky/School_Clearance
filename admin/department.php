@@ -217,7 +217,11 @@ include('../shared/connection.php');
                                             $sql="SELECT * FROM tbl_department_user WHERE department_id=$index";
                                             $user_records=mysqli_query($con,$sql);
                                             $user_info=mysqli_fetch_assoc($user_records);
+                                            if(is_null($user_info)){
+                                                $user_name = "";
+                                            }else{
                                             $user_name = $user_info['assigned_personnel'];
+                                            }
                                             echo"<tr>
                                             <td>$name
                                             </td>

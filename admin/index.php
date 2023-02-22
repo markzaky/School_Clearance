@@ -1,5 +1,5 @@
 <?php session_start();
-include('shared/connection.php');
+include('../shared/connection.php');
 if(!isset($_SESSION['admin_username'])){
     header("location:admin_login.php");
     exit();
