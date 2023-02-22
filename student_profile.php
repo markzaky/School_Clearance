@@ -8,7 +8,6 @@ if(!isset($_SESSION['index_no'])){
 <?php
 $id=$_SESSION['id'];
 
-
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +31,60 @@ $id=$_SESSION['id'];
     <link href="./assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<script src="./js/jquery-3.2.1.min.js"></script>
+<script>
+                $(function(){
+                    var user_id="<?php echo $_SESSION['id'];?>";
+                    
 
+                    // var phone = document.changeDetails.phone.value;
+                    // var email = document.changeDetails.email.value;
+                    // var password = document.changeDetails.password.value;
+                    // var passsword_confirm = document.changeDetails.passsword_confirm.value;
+                    
+                    // Request Full Clearance
+                    $("#saveChanges").click(function(){
+                        var phone = document.changeDetails.phone.value;
+                        var email = document.changeDetails.email.value;
+                        var password = document.changeDetails.password.value;
+                        var passsword_confirm = document.changeDetails.passsword_confirm.value;
+                        if(password == passsword_confirm)
+                        // alert(password);
+                        // $course = $_SESSION['course'];
+                        $.ajax({
+                            type:"post",
+                            url:"operations/clearance_operation.php",
+                            data:{operation_id:3,user_id:user_id, phone:phone, email:email,password:password},
+                            success:function(result){
+                                // swal("",(result),"success");
+                                alert(result);
+                                // window.location.href = ("student_deliverable.php");
+
+                            }
+                        });
+                        //  alert(phone);
+                               
+                    })
+                    // Request Full Clearance
+                    $('.send_request').click(function(){
+                        var deliverable_id=$(this).closest("td").find(".idx").val();
+                        // alert(deliverable_id);
+                        $.ajax({
+                            type:"post",
+                            url:"operations/clearance_operation.php",
+                            data:{operation_id:2,user_id:user_id,
+                                course:course,deliverable:deliverable_id},
+                            success:function(result){
+                                // swal("",(result),"success");
+                                // alert(result);
+                                // window.location.href = ("student_deliverable.php");
+
+                            }
+                        });
+                    })
+
+                });
+            </script>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -160,7 +212,7 @@ $id=$_SESSION['id'];
                     <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-user"></i> Profile</h1>
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                        <form>
+                        <form name='changeDetails'>
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 mb-4">
                                     <h5 class="h5 mb-2 text-gray-800"><i class="fas fa-user"></i> Profile Information</h5>
@@ -179,11 +231,11 @@ $id=$_SESSION['id'];
                                 </div> -->
                         <div class="col-xl-6 col-md-6 mb-4">
                                 <label class="text-dark">Contact</label>
-                                <input type="text" class="form-control" placeholder="ex. 07878678567">
+                                <input id="phone" type="text" class="form-control" placeholder="ex. 07878678567">
                             </div>
                             <div class="col-xl-6 col-md-6 mb-4">
                                     <label class="text-dark">Email</label>
-                                    <input type="text" class="form-control" placeholder="ex. john@gmail.com">
+                                    <input id="email" type="text" class="form-control" placeholder="ex. john@gmail.com">
                                 </div>
                                 
                                 <div class="col-xl-12 col-md-12 mb-4">
@@ -191,15 +243,15 @@ $id=$_SESSION['id'];
                                     </div>
                             <div class="col-xl-6 col-md-6 mb-4">
                                 <label class="text-dark">Password</label>
-                                <input type="password" class="form-control" placeholder="Enter New Password">
+                                <input id="password" type="password" class="form-control" placeholder="Enter New Password">
                             </div>
                             
                             <div class="col-xl-6 col-md-6 mb-4">
                                 <label class="text-dark">Repeat Password</label>
-                                <input type="password" class="form-control" placeholder="Re-enter Password">
+                                <input id="passsword_confirm" type="password" class="form-control" placeholder="Re-enter Password">
                             </div>
                             <div class="col-xl-6 col-md-6 mb-4">
-                            <button class="btn btn-primary" type="button" data-dismiss="modal">Save Changes</button>
+                            <button  id='saveChanges'class="btn btn-primary" type="button" data-dismiss="modal">Save Changes</button>
                             </div>
                         </div>
                     </form>

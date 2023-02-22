@@ -72,38 +72,6 @@ $id=$_SESSION['id'];
                             }
                         });
                     })
-                    $("#supervisor").click(function(){
-                        var supervisor_id=$(this).closest("tr").find(".super").val();
-                        $(this).closest("tr").find("#supervisor").attr("disabled","disabled").css("background-color","grey");
-                        var approve = "approve";
-                        $.ajax({
-                            type:"post",
-                            url:"operations/clearance_operation_sup.php",
-                            data:{supervisor_id:supervisor_id,user_id:user_id,
-                                approve:approve},
-                            success:function(result){
-                                swal("",(result),"success");
-                                //alert(result);
-                                //window.location.href = ("request_dashboard.php");
-
-                            }
-                        });
-
-
-                        //email request
-                        $.ajax({
-                            type:"post",
-                            url:"elastic/supervisor.php",
-                            data:{supervisor_id:supervisor_id,user_email:user_email,user_id:user_id},
-                            success:function(result){
-                                //alert(result);
-                                //window.location.href = ("request_dashboard.php");
-
-                            }
-                        });
-
-
-                    });
 
                 });
             </script>

@@ -255,7 +255,6 @@ include('../shared/connection.php');
                                             $index = $student['student_id'];
                                             $id_number = $student['student_id_number'];
                                             $first_name = $student['first_name'] ;
-                                            
                                             $last_name = $student['last_name'] ;
                                             $full_names = "$first_name $last_name";
                                             $year_level = $student['year_level'];

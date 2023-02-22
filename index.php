@@ -90,7 +90,7 @@
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="form-username" aria-describedby="emailHelp"
-                                                placeholder="Username">
+                                                placeholder="Index Number">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"

@@ -58,6 +58,7 @@ switch($operation){
       mysqli_query($con,$insert) or die(mysqli_error($con));
       echo($full_names);
       break;
+      // Add course
     case 5:
       $course = $_POST['course'];
       $department = $_POST['department'];
