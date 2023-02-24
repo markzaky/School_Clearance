@@ -99,14 +99,14 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                     <i class="fas fa-fw fa-file"></i>
                     <span>Deliverables</span></a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="requests.php">
                     <i class="fas fa-fw fa-file-word"></i>
                     <span>Requests</span></a>
             </li>
             <?php 
             if ($department_id==1){
-                echo '<li class="nav-item">
+                echo '<li class="nav-item active">
                 <a class="nav-link" href="fees.php">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Fees </span></a>
@@ -174,7 +174,7 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <!-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -186,7 +186,7 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
                                 </a>
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div> -->
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -210,11 +210,11 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Requirement</th>
-                                            <th>Request Date</th>
+                                            <th>Student Index</th>
                                             <th>Student Name</th>
-                                            <th>Student index</th>
-                                            <th>Request Status</th>
+                                            <th>Course</th>
+                                            <th>Fees Balance</th>
+                                            <th>Request Date</th>
                                             <th>Action</th>
                                             
                                         </tr>
@@ -232,25 +232,29 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                                     </tfoot>
                                     <tbody>
                                         <?php 
-                                        $sql="SELECT * FROM tbl_list_deliverable WHERE department_id=$department_id";
+                                        $sql="SELECT * FROM tbl_fees_balance";
                                         $records=mysqli_query($con,$sql);
                                         while($row=mysqli_fetch_assoc($records)){
-                                        $index = $row['deliverable_id'];
+                                        $index = $row['account_id'];
+                                        $year_1 = $row['first_year'];
+                                        $year_2 = $row['first_year'];
+                                        $year_3 = $row['first_year'];
+                                        $year_4 = $row['first_year'];
+                                        $balance = $year_1+ $year_2 + $year_3 + $year_4;
                                         $student_id = $row['student_id'];
-                                        $status = $row['status'];
-                                        $clearance_request_id = $row['list_id'];
 
-                                        $sql1="SELECT * FROM tbl_student WHERE student_id=$student_id";
+                                        $sql1="SELECT * FROM tbl_student WHERE student_id=$student_id ";
                                         $student_records=mysqli_query($con,$sql1);
                                         $student=mysqli_fetch_assoc($student_records);
+                                        $course = $student['course_id'];
 
-                                        $sql2="SELECT * FROM tbl_deliverable WHERE deliverable_id=$index";
-                                        $deliverable_records=mysqli_query($con,$sql2);
-                                        $deliverable=mysqli_fetch_assoc($deliverable_records);
+                                        $sql2="SELECT * FROM tbl_course WHERE course_id=$course";
+                                        $course_records=mysqli_query($con,$sql2);
+                                        $course=mysqli_fetch_assoc($course_records);
                                         echo "<tr>
                                             <td>";
                                                 
-                                        echo ""." ".$deliverable['requirement_name']." ".""."";
+                                        echo ""." ".$course['course_description']." ".""."";
                                         echo"       
                                             </td>
                                             <td>";
@@ -270,16 +274,7 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                                             echo"
                                             </td>
                                             <td>";
-                                            if ($status == 1){
-                                                echo "<span class='badge bg-success text-white'>cleared</span>";
-                                            }
-                                            elseif ($status == 2){
-                                                echo "<span class='badge bg-success text-white'>Requirements Not Met</span>";
-                                            }
-                                            elseif ($status == 3){
-                                                echo "<span class='badge bg-success text-white'>Require Manual Approval</span>";
-                                            }
-                                            
+                                                echo "$balance";                                            
                                             echo'
                                             </td>
                                             <td>';

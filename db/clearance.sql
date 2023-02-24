@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 16, 2018 at 06:13 AM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Host: localhost
+-- Generation Time: Feb 21, 2023 at 11:09 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -23,466 +24,364 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Table structure for table `tbl_admin`
 --
 
-CREATE TABLE `admin` (
+CREATE TABLE `tbl_admin` (
   `admin_id` int(10) NOT NULL,
   `admin_username` varchar(25) DEFAULT NULL,
   `admin_password` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `admin`
+-- Dumping data for table `tbl_admin`
 --
 
-INSERT INTO `admin` (`admin_id`, `admin_username`, `admin_password`) VALUES
+INSERT INTO `tbl_admin` (`admin_id`, `admin_username`, `admin_password`) VALUES
 (1, 'admin', 'admin');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clearance`
+-- Table structure for table `tbl_course`
 --
 
-CREATE TABLE `clearance` (
-  `clearance_id` int(10) NOT NULL,
-  `id` int(10) DEFAULT NULL,
-  `is_library_approved` int(1) DEFAULT '0',
-  `is_estate_approved` int(1) DEFAULT '0',
-  `is_src_approved` int(1) DEFAULT '0',
-  `is_hod_approved` int(1) DEFAULT '0',
-  `is_dean_approved` int(1) DEFAULT '0',
-  `is_sports_approved` int(1) DEFAULT '0',
-  `is_account_approved` int(1) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tbl_course` (
+  `course_id` int(11) NOT NULL,
+  `course_code` varchar(15) NOT NULL,
+  `course_description` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `clearance`
+-- Dumping data for table `tbl_course`
 --
 
-INSERT INTO `clearance` (`clearance_id`, `id`, `is_library_approved`, `is_estate_approved`, `is_src_approved`, `is_hod_approved`, `is_dean_approved`, `is_sports_approved`, `is_account_approved`) VALUES
-(113, 79, 0, 1, 1, 0, 0, NULL, 1),
-(114, 79, 0, 0, 1, 0, 0, NULL, 1),
-(115, 71, 0, 0, 1, 0, 0, 1, 1),
-(116, 71, 0, 0, 1, 0, 0, 0, 1),
-(117, 79, 0, 0, 1, 0, 0, 0, 1),
-(118, 71, 0, 0, 1, 0, 0, 0, 1),
-(119, 75, 0, 0, NULL, 0, 0, 0, 1),
-(120, 75, 0, 0, NULL, 0, 0, 0, 1),
-(121, 75, 0, 0, NULL, 0, 0, 0, 1),
-(122, 80, 0, 0, NULL, 0, 0, 0, 0),
-(123, 73, 0, 0, 1, 0, 0, 0, 1),
-(124, 71, 0, 0, 0, 0, 0, 0, 1),
-(125, 75, 0, 0, 0, 0, 0, 0, 1),
-(126, 79, 0, 0, 0, 0, 0, 0, 1),
-(127, 73, 0, 0, 0, 0, 0, 0, 1);
+INSERT INTO `tbl_course` (`course_id`, `course_code`, `course_description`) VALUES
+(1, 'BCS', 'Bachelors In Computer Science'),
+(3, 'DCS', 'Diploma In Computing Sciences');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `department`
+-- Table structure for table `tbl_deliverable`
 --
 
-CREATE TABLE `department` (
-  `department_id` int(10) NOT NULL,
-  `department_name` varchar(70) DEFAULT NULL,
-  `faculty_id` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tbl_deliverable` (
+  `deliverable_id` int(11) NOT NULL,
+  `department_id` int(11) NOT NULL,
+  `course_id` int(10) NOT NULL,
+  `requirement_name` varchar(30) NOT NULL,
+  `description` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `department`
+-- Dumping data for table `tbl_deliverable`
 --
 
-INSERT INTO `department` (`department_id`, `department_name`, `faculty_id`) VALUES
-(20, 'HND Computer Science', 6),
-(21, 'HND Computer Networking', 6),
-(22, 'HND Hospitality', 6),
-(23, 'HND Statistics', 6),
-(24, 'HND Fashion Design', 6),
-(25, 'HND Accountancy', 7),
-(26, 'HND Marketing', 7),
-(27, 'HND Purchasing and Supply', 7),
-(28, 'HND Secretaryship and Management Studies', 7);
+INSERT INTO `tbl_deliverable` (`deliverable_id`, `department_id`, `course_id`, `requirement_name`, `description`) VALUES
+(1, 1, 1, 'Cleared School Tution Fees', 'You need to have cleared all the student fee balance, from 1st year to 4th Year.'),
+(2, 2, 1, 'Returned all books', 'You need to have returned all library borrowed books and any school owned reading maerial');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `designee`
+-- Table structure for table `tbl_department`
 --
 
-CREATE TABLE `designee` (
-  `designee_id` int(10) NOT NULL,
-  `designee_name` varchar(25) DEFAULT NULL,
-  `username` varchar(25) DEFAULT NULL,
-  `password` varchar(25) DEFAULT NULL,
-  `email` varchar(25) DEFAULT NULL,
-  `user_type` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tbl_department` (
+  `department_id` int(11) NOT NULL,
+  `department_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `designee`
+-- Dumping data for table `tbl_department`
 --
 
-INSERT INTO `designee` (`designee_id`, `designee_name`, `username`, `password`, `email`, `user_type`) VALUES
-(3, 'Librarian', 'library', 'lib2023', 'youngquarshie@gmail.com', 'Librarian'),
-(4, 'Alumni ', 'Alumni ', 'alumni2023', NULL, 'Alumni '),
-(5, 'Hostels/halls', 'hostels', 'hostels2023', NULL, 'Hostels'),
-(6, 'Dean of Students', 'dean', 'dean2023', NULL, 'Dean'),
-(7, 'Accounts', 'account', 'account2023', 'pemzymony@gmail.com', 'Account'),
-(8, 'Chairperson of Department', 'cod', 'cod2023', NULL, 'COD'),
-(9, 'Sports Master', 'sports', 'sports2023', NULL, 'Sports'),
-(10, 'Cafeteria', 'cafeteria', 'cafeteria2023', NULL, 'Cafeteria'),
-(11, 'Workshop', 'workshop', 'workshop2023', NULL, 'Workshop'),
-(12, 'Senate Affairs', 'senate', 'senate2023', NULL, 'Senate Affairs');
+INSERT INTO `tbl_department` (`department_id`, `department_name`) VALUES
+(1, 'Finance Office'),
+(2, 'Library'),
+(3, 'Registrar'),
+(4, 'Chairperson of Department'),
+(5, 'Alumni Office'),
+(6, 'Hostels'),
+(7, 'Cafeteria'),
+(8, 'Workshop'),
+(9, 'Sports'),
+(10, 'Dean of Students'),
+(11, 'Senate Affairs');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `faculty`
+-- Table structure for table `tbl_department_user`
 --
 
-CREATE TABLE `faculty` (
-  `faculty_id` int(10) NOT NULL,
-  `faculty_name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tbl_department_user` (
+  `department_user_id` int(11) NOT NULL,
+  `department_id` int(11) NOT NULL,
+  `assigned_personnel` varchar(100) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` text NOT NULL,
+  `account_status` int(1) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `phone_number` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `faculty`
+-- Dumping data for table `tbl_department_user`
 --
 
-INSERT INTO `faculty` (`faculty_id`, `faculty_name`) VALUES
-(6, 'Faculty of Applied Science and Technology'),
-(7, 'Faculty of Business and Management Studies'),
-(8, 'Faculty of Engineering'),
-(9, 'Faculty of Built and Natural Environment'),
-(10, 'Faculty of Health and Allied Sciences');
+INSERT INTO `tbl_department_user` (`department_user_id`, `department_id`, `assigned_personnel`, `username`, `password`, `account_status`, `email`, `phone_number`) VALUES
+(1, 1, 'John Doe', 'ianDoe', '1234', 0, '1', ''),
+(2, 2, 'Jane Doe', 'janeDoe', '1234', 0, '2', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student`
+-- Table structure for table `tbl_fees_balance`
 --
 
-CREATE TABLE `student` (
-  `id` int(10) NOT NULL,
-  `index_no` varchar(15) DEFAULT NULL,
-  `first_name` varchar(25) DEFAULT NULL,
-  `last_name` varchar(25) DEFAULT NULL,
-  `password` varchar(25) DEFAULT NULL,
-  `email` varchar(25) DEFAULT NULL,
-  `status` varchar(10) NOT NULL DEFAULT '0',
-  `src_request` int(10) DEFAULT '0',
-  `dean_request` int(10) DEFAULT '0',
-  `hod_request` int(10) DEFAULT '0',
-  `sports_request` int(10) DEFAULT '0',
-  `library_request` int(10) DEFAULT '0',
-  `account_request` int(10) DEFAULT '0',
-  `estate_request` int(10) DEFAULT '0',
-  `department_id` int(10) DEFAULT NULL,
-  `faculty_id` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `student`
---
-
-INSERT INTO `student` (`id`, `index_no`, `first_name`, `last_name`, `password`, `email`, `status`, `src_request`, `dean_request`, `hod_request`, `sports_request`, `library_request`, `account_request`, `estate_request`, `department_id`, `faculty_id`) VALUES
-(71, '04/2015/0808D', 'AMPONSAH', 'OBED', '1234', 'amponsah_obed@gmail.com', '0', 1, 1, 1, 1, 1, 1, 1, 20, 6),
-(72, '04/2015/0809D', 'MICHAEL', 'OSEI ANANG', '1234', 'michael_osei@gmail.com', '0', 0, 0, 0, 0, 0, 0, 0, 20, 6),
-(73, '04/2015/0701D', 'GILBERT', 'ASMAH', '1234', 'gilbert_asmah@gmail.com', '0', 1, 1, 1, 1, 1, 1, 1, 27, 7),
-(74, '04/2014/0702D', 'EWURAMA', 'AMPOMAAH', '1234', 'ewura_ampomah@gmail.com', '0', 1, 1, 0, 0, 1, 1, 1, 27, 7),
-(75, '04/2015/0801D', 'NII', 'ARMAH', '1234', 'braniiblack@gmail.com', '0', 1, 1, 1, 1, 1, 1, 1, 20, 6),
-(76, '04/2015/1297D', 'EDITH', 'KLU SEWOR', '1234', 'edithklusewor@gmail.com', '0', 0, 0, 0, 0, 0, 0, 0, 26, 7),
-(77, '04/2015/1293D', 'SALOMEY', 'SESU GAD', '1234', 'salomey_sesu@gmail.com', '0', 1, 1, 1, 1, 1, 1, 1, 26, 7),
-(78, '04/2015/0835D', 'RICHMOND', 'SAKYI TABI', '1234', 'richmond_tabi@gmail.com', '0', 0, 0, 0, 0, 0, 0, 0, 20, 6),
-(79, '04/2015/0832D', 'ISAAC', 'QUARSHIE', '1234', 'pemzymony@gmail.com', '0', 1, 1, 1, 1, 1, 1, 1, 20, 6),
-(80, '04/2015/0802D', 'STEVEN', 'MANFO', '1234', 'pneumalogoss@gmail.com', '0', 1, 0, 0, 1, 1, 0, 0, 20, 6);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_account`
---
-
-CREATE TABLE `tbl_account` (
+CREATE TABLE `tbl_fees_balance` (
   `account_id` int(10) NOT NULL,
   `student_id` int(10) NOT NULL,
   `first_year` float DEFAULT NULL,
   `second_year` float DEFAULT NULL,
-  `third_year` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `third_year` float DEFAULT NULL,
+  `fourth_year` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tbl_fees_balance`
+--
+
+INSERT INTO `tbl_fees_balance` (`account_id`, `student_id`, `first_year`, `second_year`, `third_year`, `fourth_year`) VALUES
+(1, 1, 0, 0, 0, 0),
+(2, 2, 0, 1, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_estate`
+-- Table structure for table `tbl_list_deliverable`
 --
 
-CREATE TABLE `tbl_estate` (
-  `estate_id` int(10) NOT NULL,
-  `student_id` int(10) NOT NULL,
-  `type_of_damage` varchar(25) DEFAULT NULL,
-  `date_of_action` date DEFAULT NULL,
-  `payment` float DEFAULT NULL,
-  `payment_date` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tbl_list_deliverable` (
+  `list_id` int(11) NOT NULL,
+  `deliverable_id` int(11) NOT NULL,
+  `uploaded_file` longblob DEFAULT NULL,
+  `request_date` date NOT NULL,
+  `department_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `remarks` varchar(200) NOT NULL,
+  `status` int(1) NOT NULL,
+  `department_user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_library`
+-- Table structure for table `tbl_student`
 --
 
-CREATE TABLE `tbl_library` (
-  `library_id` int(10) NOT NULL,
-  `student_id` int(10) NOT NULL,
-  `book_title` varchar(50) NOT NULL,
-  `date_of_return` varchar(255) DEFAULT NULL,
-  `date_of_issue` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tbl_student` (
+  `student_id` int(11) NOT NULL,
+  `student_id_number` varchar(15) NOT NULL,
+  `last_name` varchar(30) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `year_level` int(1) NOT NULL,
+  `contact` varchar(15) NOT NULL,
+  `email_address` varchar(50) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` text NOT NULL,
+  `account_status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `tbl_library`
+-- Dumping data for table `tbl_student`
 --
 
-INSERT INTO `tbl_library` (`library_id`, `student_id`, `book_title`, `date_of_return`, `date_of_issue`) VALUES
-(1, 75, 'Grief Child', '', '2018-05-07');
+INSERT INTO `tbl_student` (`student_id`, `student_id_number`, `last_name`, `first_name`, `course_id`, `year_level`, `contact`, `email_address`, `username`, `password`, `account_status`) VALUES
+(1, '1234', 'Mark', 'Zakyy', 1, 4, '07142352885', 'mark@gmail.com', 'markzaky', '1234', 0),
+(2, '12345', 'Doe', 'Macheda', 1, 4, '07158848541', 'macheda@gmail.com', 'macheda', '1234', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sports`
+-- Table structure for table `tbl_user`
 --
 
-CREATE TABLE `tbl_sports` (
-  `sports_id` int(10) NOT NULL,
-  `student_id` int(10) NOT NULL,
-  `item` varchar(25) NOT NULL,
-  `payment` int(11) DEFAULT NULL,
-  `date_of_issue` date DEFAULT NULL,
-  `date_of_return` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tbl_user` (
+  `user_id` int(11) NOT NULL,
+  `complete_name` varchar(100) NOT NULL,
+  `avatar` longblob DEFAULT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` text NOT NULL,
+  `contact` varchar(15) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `tbl_sports`
+-- Dumping data for table `tbl_user`
 --
 
-INSERT INTO `tbl_sports` (`sports_id`, `student_id`, `item`, `payment`, `date_of_issue`, `date_of_return`) VALUES
-(1, 75, 'Football', NULL, '2018-05-01', NULL),
-(2, 79, 'Jersey', NULL, '2018-05-02', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_src`
---
-
-CREATE TABLE `tbl_src` (
-  `src_id` int(10) NOT NULL,
-  `student_id` int(10) NOT NULL,
-  `amount` varchar(25) NOT NULL,
-  `bal` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_src`
---
-
-INSERT INTO `tbl_src` (`src_id`, `student_id`, `amount`, `bal`) VALUES
-(1, 75, '100', NULL),
-(2, 80, '100', NULL);
+INSERT INTO `tbl_user` (`user_id`, `complete_name`, `avatar`, `username`, `password`, `contact`, `email`, `status`) VALUES
+(1, 'Ian Doe', NULL, 'ianDoe', '1234', '0', 'iandoe@gamil.com', 0),
+(2, 'Jane Doe', NULL, 'janeDoe', '1234', '07142548589', 'janedoe@gmail.com', 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
+-- Indexes for table `tbl_course`
 --
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`admin_id`);
+ALTER TABLE `tbl_course`
+  ADD PRIMARY KEY (`course_id`);
 
 --
--- Indexes for table `clearance`
+-- Indexes for table `tbl_deliverable`
 --
-ALTER TABLE `clearance`
-  ADD PRIMARY KEY (`clearance_id`),
-  ADD KEY `id` (`id`);
-
---
--- Indexes for table `department`
---
-ALTER TABLE `department`
-  ADD PRIMARY KEY (`department_id`),
-  ADD KEY `faculty_id` (`faculty_id`);
-
---
--- Indexes for table `designee`
---
-ALTER TABLE `designee`
-  ADD PRIMARY KEY (`designee_id`);
-
---
--- Indexes for table `faculty`
---
-ALTER TABLE `faculty`
-  ADD PRIMARY KEY (`faculty_id`);
-
---
--- Indexes for table `student`
---
-ALTER TABLE `student`
-  ADD PRIMARY KEY (`id`),
+ALTER TABLE `tbl_deliverable`
+  ADD PRIMARY KEY (`deliverable_id`),
   ADD KEY `department_id` (`department_id`),
-  ADD KEY `faculty_id` (`faculty_id`);
+  ADD KEY `course_id` (`course_id`);
 
 --
--- Indexes for table `tbl_account`
+-- Indexes for table `tbl_department`
 --
-ALTER TABLE `tbl_account`
+ALTER TABLE `tbl_department`
+  ADD PRIMARY KEY (`department_id`);
+
+--
+-- Indexes for table `tbl_department_user`
+--
+ALTER TABLE `tbl_department_user`
+  ADD PRIMARY KEY (`department_user_id`),
+  ADD UNIQUE KEY `department_id` (`department_id`);
+
+--
+-- Indexes for table `tbl_fees_balance`
+--
+ALTER TABLE `tbl_fees_balance`
   ADD PRIMARY KEY (`account_id`),
-  ADD KEY `student_id` (`student_id`);
+  ADD UNIQUE KEY `student_id` (`student_id`);
 
 --
--- Indexes for table `tbl_estate`
+-- Indexes for table `tbl_list_deliverable`
 --
-ALTER TABLE `tbl_estate`
-  ADD PRIMARY KEY (`estate_id`),
-  ADD KEY `student id` (`student_id`);
+ALTER TABLE `tbl_list_deliverable`
+  ADD PRIMARY KEY (`list_id`),
+  ADD KEY `department_user_id` (`department_user_id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `deliverable_id` (`deliverable_id`,`student_id`,`department_user_id`) USING BTREE,
+  ADD KEY `department_id` (`department_id`);
 
 --
--- Indexes for table `tbl_library`
+-- Indexes for table `tbl_student`
 --
-ALTER TABLE `tbl_library`
-  ADD PRIMARY KEY (`library_id`),
-  ADD KEY `student_id` (`student_id`);
+ALTER TABLE `tbl_student`
+  ADD PRIMARY KEY (`student_id`),
+  ADD KEY `course_id_2` (`course_id`),
+  ADD KEY `course_id_3` (`course_id`),
+  ADD KEY `course_id` (`course_id`) USING BTREE;
 
 --
--- Indexes for table `tbl_sports`
+-- Indexes for table `tbl_user`
 --
-ALTER TABLE `tbl_sports`
-  ADD PRIMARY KEY (`sports_id`),
-  ADD KEY `student_id` (`student_id`);
-
---
--- Indexes for table `tbl_src`
---
-ALTER TABLE `tbl_src`
-  ADD PRIMARY KEY (`src_id`),
-  ADD KEY `student_id` (`student_id`);
+ALTER TABLE `tbl_user`
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT for table `tbl_course`
 --
-ALTER TABLE `admin`
-  MODIFY `admin_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `tbl_course`
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
--- AUTO_INCREMENT for table `clearance`
+-- AUTO_INCREMENT for table `tbl_deliverable`
 --
-ALTER TABLE `clearance`
-  MODIFY `clearance_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+ALTER TABLE `tbl_deliverable`
+  MODIFY `deliverable_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
--- AUTO_INCREMENT for table `department`
+-- AUTO_INCREMENT for table `tbl_department`
 --
-ALTER TABLE `department`
-  MODIFY `department_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+ALTER TABLE `tbl_department`
+  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
--- AUTO_INCREMENT for table `designee`
+-- AUTO_INCREMENT for table `tbl_department_user`
 --
-ALTER TABLE `designee`
-  MODIFY `designee_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+ALTER TABLE `tbl_department_user`
+  MODIFY `department_user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
--- AUTO_INCREMENT for table `faculty`
+-- AUTO_INCREMENT for table `tbl_fees_balance`
 --
-ALTER TABLE `faculty`
-  MODIFY `faculty_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+ALTER TABLE `tbl_fees_balance`
+  MODIFY `account_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
 --
--- AUTO_INCREMENT for table `student`
+-- AUTO_INCREMENT for table `tbl_list_deliverable`
 --
-ALTER TABLE `student`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+ALTER TABLE `tbl_list_deliverable`
+  MODIFY `list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+
 --
--- AUTO_INCREMENT for table `tbl_account`
+-- AUTO_INCREMENT for table `tbl_student`
 --
-ALTER TABLE `tbl_account`
-  MODIFY `account_id` int(10) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tbl_student`
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+
 --
--- AUTO_INCREMENT for table `tbl_estate`
+-- AUTO_INCREMENT for table `tbl_user`
 --
-ALTER TABLE `tbl_estate`
-  MODIFY `estate_id` int(10) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_library`
---
-ALTER TABLE `tbl_library`
-  MODIFY `library_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `tbl_sports`
---
-ALTER TABLE `tbl_sports`
-  MODIFY `sports_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `tbl_src`
---
-ALTER TABLE `tbl_src`
-  MODIFY `src_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `tbl_user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `clearance`
+-- Constraints for table `tbl_deliverable`
 --
-ALTER TABLE `clearance`
-  ADD CONSTRAINT `clearance_ibfk_1` FOREIGN KEY (`id`) REFERENCES `student` (`id`);
+ALTER TABLE `tbl_deliverable`
+  ADD CONSTRAINT `tbl_deliverable_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `tbl_department` (`department_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `tbl_deliverable_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `tbl_course` (`course_id`);
 
 --
--- Constraints for table `department`
+-- Constraints for table `tbl_department_user`
 --
-ALTER TABLE `department`
-  ADD CONSTRAINT `department_ibfk_1` FOREIGN KEY (`faculty_id`) REFERENCES `faculty` (`faculty_id`);
+ALTER TABLE `tbl_department_user`
+  ADD CONSTRAINT `tbl_department_user_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `tbl_department` (`department_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `student`
+-- Constraints for table `tbl_fees_balance`
 --
-ALTER TABLE `student`
-  ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`),
-  ADD CONSTRAINT `student_ibfk_2` FOREIGN KEY (`faculty_id`) REFERENCES `faculty` (`faculty_id`);
+ALTER TABLE `tbl_fees_balance`
+  ADD CONSTRAINT `tbl_fees_balance_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `tbl_student` (`student_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `tbl_account`
+-- Constraints for table `tbl_list_deliverable`
 --
-ALTER TABLE `tbl_account`
-  ADD CONSTRAINT `tbl_account_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`);
+ALTER TABLE `tbl_list_deliverable`
+  ADD CONSTRAINT `tbl_list_deliverable_ibfk_3` FOREIGN KEY (`department_user_id`) REFERENCES `tbl_department_user` (`department_user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `tbl_list_deliverable_ibfk_4` FOREIGN KEY (`student_id`) REFERENCES `tbl_student` (`student_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `tbl_list_deliverable_ibfk_5` FOREIGN KEY (`department_id`) REFERENCES `tbl_department` (`department_id`),
+  ADD CONSTRAINT `tbl_list_deliverable_ibfk_6` FOREIGN KEY (`deliverable_id`) REFERENCES `tbl_deliverable` (`deliverable_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `tbl_estate`
+-- Constraints for table `tbl_student`
 --
-ALTER TABLE `tbl_estate`
-  ADD CONSTRAINT `tbl_estate_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`);
-
---
--- Constraints for table `tbl_library`
---
-ALTER TABLE `tbl_library`
-  ADD CONSTRAINT `tbl_library_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`);
-
---
--- Constraints for table `tbl_sports`
---
-ALTER TABLE `tbl_sports`
-  ADD CONSTRAINT `tbl_sports_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`);
-
---
--- Constraints for table `tbl_src`
---
-ALTER TABLE `tbl_src`
-  ADD CONSTRAINT `tbl_src_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`);
+ALTER TABLE `tbl_student`
+  ADD CONSTRAINT `tbl_student_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `tbl_course` (`course_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

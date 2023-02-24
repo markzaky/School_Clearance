@@ -100,7 +100,18 @@ $sql2 = "SELECT COUNT(*) AS count FROM tbl_list_deliverable WHERE department_id=
                     <i class="fas fa-fw fa-file-word"></i>
                     <span>Requests</span></a>
             </li>
-            <li class="nav-item">
+            <?php 
+            if ($department_id==1){
+                echo '<li class="nav-item">
+                <a class="nav-link" href="module.php">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Fees </span></a>
+            </li>';
+
+            }
+            
+            ?>
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="module.php">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Module </span></a>
@@ -109,7 +120,7 @@ $sql2 = "SELECT COUNT(*) AS count FROM tbl_list_deliverable WHERE department_id=
                 <a class="nav-link" href="message.php">
                     <i class="fas fa-fw fa-comment"></i>
                     <span>Message</span></a>
-            </li>
+            </li> -->
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

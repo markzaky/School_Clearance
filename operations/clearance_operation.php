@@ -4,9 +4,10 @@ session_start();
 include('../shared/connection.php');
 $operation_id = $_POST['operation_id'];
 $userid=$_POST['user_id'];
-$course=$_POST['course'];
+
 switch($operation_id){
     case 1:
+        $course=$_POST['course'];
         // echo("<script>alert(`Sucess`);</script>");
         $sql1="SELECT * FROM tbl_deliverable WHERE course_id=$course";  
         $deliverable_records=mysqli_query($con,$sql1); 

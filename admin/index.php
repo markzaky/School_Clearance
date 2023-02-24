@@ -154,7 +154,7 @@ $user = $_SESSION['admin_username']
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <!-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -166,7 +166,7 @@ $user = $_SESSION['admin_username']
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
                                 </a>
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div> -->
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -189,15 +189,27 @@ $user = $_SESSION['admin_username']
 
                     <!-- Content Row -->
                     <div class="row">
+                        <!-- Getting number of students -->
+                    <?php 
+                        $sql2 = "SELECT COUNT(*) AS count FROM tbl_student";
+                        $result = $con->query($sql2);
 
-                        <div class="col-xl-4 col-md-6 mb-4">
+                        if ($result->num_rows > 0) {
+                            while($row2 = $result->fetch_assoc()) {
+                                $students = $row2["count"];
+                            }
+                        } else {
+                            $students = 0;
+                        }
+                        ?>
+                        <div class="col-xl-4 col-md-6 mb-4 offset-md-2">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Number of Student</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo"$students"?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
@@ -206,24 +218,19 @@ $user = $_SESSION['admin_username']
                                 </div>
                             </div>
                         </div>
+                        <!-- Getting number of departments   -->
+                        <?php 
+                        $sql2 = "SELECT COUNT(*) AS count FROM tbl_department";
+                        $result = $con->query($sql2);
 
-                        <div class="col-xl-4 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Number of Faculty</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">20</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        if ($result->num_rows > 0) {
+                            while($row2 = $result->fetch_assoc()) {
+                                $departments = $row2["count"];
+                            }
+                        } else {
+                            $departments = 0;
+                        }
+                        ?>
                         <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
@@ -231,7 +238,7 @@ $user = $_SESSION['admin_username']
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Number of Department</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo"$departments"?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-building fa-2x text-gray-300"></i>
@@ -240,6 +247,19 @@ $user = $_SESSION['admin_username']
                                 </div>
                             </div>
                         </div>
+                        <!-- Getting number of users   -->
+                        <?php 
+                        $sql2 = "SELECT COUNT(*) AS count FROM tbl_department_user";
+                        $result = $con->query($sql2);
+
+                        if ($result->num_rows > 0) {
+                            while($row2 = $result->fetch_assoc()) {
+                                $users = $row2["count"];
+                            }
+                        } else {
+                            $users = 0;
+                        }
+                        ?>
                         <div class="col-xl-4 col-md-6 mb-4 offset-md-2">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
@@ -247,7 +267,7 @@ $user = $_SESSION['admin_username']
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                                 Number of Users</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo "$users"?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-user-lock fa-2x text-gray-300"></i>
@@ -256,7 +276,19 @@ $user = $_SESSION['admin_username']
                                 </div>
                             </div>
                         </div>
-                        <!-- Pending Requests Card Example -->
+                        <!-- Getting number of courses   -->
+                        <?php 
+                        $sql2 = "SELECT COUNT(*) AS count FROM tbl_course";
+                        $result = $con->query($sql2);
+
+                        if ($result->num_rows > 0) {
+                            while($row2 = $result->fetch_assoc()) {
+                                $courses = $row2["count"];
+                            }
+                        } else {
+                            $courses = 0;
+                        }
+                        ?>
                         <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card border-left-danger shadow h-100 py-2">
                                 <div class="card-body">
@@ -264,7 +296,7 @@ $user = $_SESSION['admin_username']
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                                 Number of Course</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo "$courses"?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-certificate fa-2x text-gray-300"></i>

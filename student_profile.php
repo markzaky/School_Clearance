@@ -36,12 +36,6 @@ $id=$_SESSION['id'];
                 $(function(){
                     var user_id="<?php echo $_SESSION['id'];?>";
                     
-
-                    // var phone = document.changeDetails.phone.value;
-                    // var email = document.changeDetails.email.value;
-                    // var password = document.changeDetails.password.value;
-                    // var passsword_confirm = document.changeDetails.passsword_confirm.value;
-                    
                     // Request Full Clearance
                     $("#saveChanges").click(function(){
                         var phone = document.changeDetails.phone.value;
@@ -58,7 +52,7 @@ $id=$_SESSION['id'];
                             success:function(result){
                                 // swal("",(result),"success");
                                 alert(result);
-                                // window.location.href = ("student_deliverable.php");
+                                // window.location.href = ("student_profile.php");
 
                             }
                         });
