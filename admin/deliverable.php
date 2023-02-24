@@ -26,7 +26,35 @@ include('../shared/connection.php');
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script>
 
+    $(function(){
+        
+        // Add department user
+        $("#addDeliverable").click(function(){
+
+            var course = document.addDeliverable.course.value;
+            var deliverable_name = document.addDeliverable.deliverable_name.value;
+            var deliverable_desc = document.addDeliverable.deliverable_desc.value;
+            var department = document.addDeliverable.department.value;
+
+            $.ajax({
+                type:"post",
+                url:"../operations/admin_operation.php",
+                data:{operation_id:5,
+                    course:course, deliverable_name:deliverable_name, deliverable_desc:deliverable_desc, department:department},
+                success:function(result){
+
+                    alert(result);
+                    // window.location.href = ("users.php");
+
+                }
+            });
+
+        })
+    })
+</script>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -295,7 +323,7 @@ include('../shared/connection.php');
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="" name='addStudent'>
+                <form action="" name='addDeliverable'>
                 <div class="modal-body">
                 <select id="course" class="form-control bg-light border-0 small">
                         <?php          
@@ -327,10 +355,10 @@ include('../shared/connection.php');
                            
                         </select>
                         <br>
-                    <input id='' type="text" class="form-control bg-light border-0 small" placeholder="Deliverable Name"
+                    <input id='deliverable_name' type="text" class="form-control bg-light border-0 small" placeholder="Deliverable Name"
                         aria-label="Search" aria-describedby="basic-addon2">
                         <br>
-                    <input id='first_name' type="text-field" class="form-control bg-light border-0 small" placeholder="Deliverable Descreption"
+                    <input id='deliverable_desc' type="text-field" class="form-control bg-light border-0 small" placeholder="Deliverable Descreption"
                         aria-label="Search" aria-describedby="basic-addon2">
                        
                     </div>

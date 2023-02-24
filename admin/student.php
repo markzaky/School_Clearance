@@ -28,15 +28,12 @@ include('../shared/connection.php');
 </head>
 <script src="../js/jquery-3.2.1.min.js"></script>
 <script>
-    // var password = document.getElementById("hellooo").value;
-    // var password = document.getElementById("first_name").value;
 
     $(function(){
         
         // Request Full Clearance
         $("#addStudent").click(function(){
-            // alert(course);
-            // name = document.addStudent.first_name.value;
+          
             var index = document.addStudent.index_no.value;
             var first_name = document.addStudent.first_name.value;
             var last_name = document.addStudent.last_name.value;
@@ -45,23 +42,16 @@ include('../shared/connection.php');
             var study_year = document.addStudent.study_year.value;
             var course = document.addStudent.course.value;
 
-            
-            // alert(index);
-            // alert("Helo");
-            // $course = $_SESSION['course'];
             $.ajax({
                 type:"post",
                 url:"../operations/admin_operation.php",
                 data:{operation_id:1,index:index,
                     first_name:first_name, last_name:last_name, phone:phone, email:email,study_year, course:course},
                 success:function(result){
-                    // swal("",(result),"success");
-                    alert(result);
-                    // window.location.href = ("student_deliverable.php");
+                    window.location.href = ("student.php");
 
                 }
             });
-            //  alert("Hello");
 
         })
     })
@@ -191,7 +181,7 @@ include('../shared/connection.php');
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <!-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -203,7 +193,7 @@ include('../shared/connection.php');
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
                                 </a>
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div> -->
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -265,7 +255,7 @@ include('../shared/connection.php');
                                             $index = $student['student_id'];
                                             $id_number = $student['student_id_number'];
                                             $first_name = $student['first_name'] ;
-
+                                            
                                             $last_name = $student['last_name'] ;
                                             $full_names = "$first_name $last_name";
                                             $year_level = $student['year_level'];
