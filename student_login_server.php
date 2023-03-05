@@ -29,9 +29,9 @@ if($index_no&&$password){
 			
 }
 		else {
-			//header('location:studentlogin.php?failed=failed');
-			//echo "Wrong username or password";
-			echo "0";
+			header('location:index.php?failed=failed');
+			echo "Wrong username or password";
+			// echo "0";
 			exit;
 		}
 	

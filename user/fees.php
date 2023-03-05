@@ -237,9 +237,9 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                                         while($row=mysqli_fetch_assoc($records)){
                                         $index = $row['account_id'];
                                         $year_1 = $row['first_year'];
-                                        $year_2 = $row['first_year'];
-                                        $year_3 = $row['first_year'];
-                                        $year_4 = $row['first_year'];
+                                        $year_2 = $row['second_year'];
+                                        $year_3 = $row['third_year'];
+                                        $year_4 = $row['fourth_year'];
                                         $balance = $year_1+ $year_2 + $year_3 + $year_4;
                                         $student_id = $row['student_id'];
 
@@ -251,25 +251,27 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                                         $sql2="SELECT * FROM tbl_course WHERE course_id=$course";
                                         $course_records=mysqli_query($con,$sql2);
                                         $course=mysqli_fetch_assoc($course_records);
+                                        $status = 1;
                                         echo "<tr>
                                             <td>";
                                                 
-                                        echo ""." ".$course['course_description']." ".""."";
+                                            echo ""." ".$student['student_id_number']." ".""."";
+
                                         echo"       
                                             </td>
                                             <td>";
                                                
-                                                echo ""." ".$row['request_date']." ".""."";
+                                            echo ""." ".$student['first_name']." ".$student['last_name']." ".""."";
                                         echo"
                                             </td>
                                             <td>";
-                                            echo ""." ".$student['first_name']." ".""."";
-                                            echo ""." ".$student['last_name']." ".""."";
+                                            echo ""." ".$course['course_description']." ".""."";
+                                            
 
                                             echo"
                                             </td>
                                              <td>";
-                                             echo ""." ".$student['student_id_number']." ".""."";
+                                             echo "$balance";  
                                             
                                             echo"
                                             </td>
@@ -278,15 +280,15 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                                             echo'
                                             </td>
                                             <td>';
-                                                    if ($status == 1){
+                                                    if ($balance <= 0){
                                                         echo "<span class='badge bg-success text-white'>cleared</span>";
                                                     }
-                                                    elseif($status == 2){
+                                                    elseif($balance > 0){
                                                         echo "
                                                         <a href='#' class='send_request btn btn-primary btn-icon-split  ' data-toggle='modal' data-target='#request_model'>Send Request</a>
-                                                        <input type='hidden' name='text' class= 'idx' value='$clearance_request_id'>
+                                                        <input type='hidden' name='text' class= 'idx' value='$index'>
                                                         ";
-                                                    }elseif($status == 3){
+                                                    }elseif($balance == 3){
                                                         echo "<a href='#' class='approveRequst btn btn-primary btn-icon-split ' data-toggle='modal' data-target='#approveModal'>Aprove Request</a>
                                                         <input type='hidden' name='text' class= 'idx' value='$clearance_request_id'>";
                                                     };

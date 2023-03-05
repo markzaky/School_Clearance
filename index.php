@@ -44,7 +44,7 @@
                     {
                         // swal("",("Wrong Username or Password"),"error");
                         setTimeout(function () {
-                            document.getElementById("load").innerHTML="";
+                            document.getElementById("load").innerHTML="<p class = 'badge bg-danger text-white' >Incorrect Username or Password</p>";
                         },2000);
                     }
                 },2000)
@@ -81,11 +81,13 @@
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
-                                <div id="load"></div>
+                                
                                 <div id="status" style="color: red;"></div>
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Student Login</h1>
+                                        <div id="load"></div>
                                     </div>
+                                    
                                     <form class="user">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
