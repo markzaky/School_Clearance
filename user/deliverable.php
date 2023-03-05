@@ -99,8 +99,8 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                     <i class="fas fa-fw fa-file-word"></i>
                     <span>Request</span></a>
             </li>
-            <?php 
-            if ($department_id==1){
+            
+            <!-- if ($department_id==1){
                 echo '<li class="nav-item">
                 <a class="nav-link" href="fees.php">
                     <i class="fas fa-fw fa-file"></i>
@@ -109,7 +109,7 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
 
             }
             
-            ?>
+             -->
             <!-- <li class="nav-item">
                 <a class="nav-link" href="module.php">
                     <i class="fas fa-fw fa-file"></i>
