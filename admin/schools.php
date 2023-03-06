@@ -30,19 +30,18 @@ include('../shared/connection.php');
     $(function(){
         
         // Add New Course
-        $("#addCourse").click(function(){
+        $("#addSchool").click(function(){
             
-            var course_code = document.addCourse.course_code.value;
-            var course_name = document.addCourse.course_name.value;
-            var school_id = document.addCourse.school.value;
+            var course_code = document.addSchool.course_code.value;
+            var course_name = document.addSchool.course_name.value;
 
             $.ajax({
                 type:"post",
                 url:"../operations/admin_operation.php",
-                data:{operation_id:3,name:course_name, code:course_code, school:school_id},
+                data:{operation_id:6,name:course_name, code:course_code},
                 success:function(result){
                     alert(result);
-                    window.location.href = ("course.php");
+                    window.location.href = ("schools.php");
 
                 }
             });
@@ -83,12 +82,13 @@ include('../shared/connection.php');
             <div class="sidebar-heading">
                 Manage
             </div>
-            <li class="nav-item">
+
+            <li class="nav-item active">
                 <a class="nav-link" href="schools.php">
                     <i class="fas fa-fw fa-graduation-cap"></i>
                     <span>Schools</span></a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="course.php">
                     <i class="fas fa-fw fa-certificate"></i>
                     <span>Course</span></a>
@@ -207,12 +207,12 @@ include('../shared/connection.php');
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-certificate"></i> Courses</h1>
-                                    <a href="#" data-toggle="modal" data-target="#AddCourseModal" class="btn btn-primary btn-icon-split float-right">
+                    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-graduation-cap"></i> Schools</h1>
+                                    <a href="#" data-toggle="modal" data-target="#addSchoolModal" class="btn btn-primary btn-icon-split float-right">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-plus"></i>
                                         </span>
-                                        <span class="text">Add Course</span>
+                                        <span class="text">Add School</span>
                                     </a><br><br>
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -220,31 +220,31 @@ include('../shared/connection.php');
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Course Code</th>
-                                            <th>Course Description</th>
-                                            <th>Students</th>
+                                            <th>School Code</th>
+                                            <th>School Description</th>
+                                            <th>Courses</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Course Code</th>
                                             <th>Course Description</th>
-                                            <th>Students</th>
+                                            <th>Courses</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                     <?php
                                         
-                                        $sql = "SELECT * FROM `tbl_course`  \n"
-                                            . "ORDER BY `tbl_course`.`course_id` ASC;";
+                                        $sql = "SELECT * FROM `tbl_schools`  \n"
+                                            . "ORDER BY `tbl_schools`.`school_id` ASC;";
                                         
                                         $records=mysqli_query($con,$sql);
                                         
                                         while($row=mysqli_fetch_assoc($records)){
-                                            $index = $row['course_id'];
-                                            $code = $row['course_code'];
-                                            $descreption = $row['course_description'];
-                                            $sql = "SELECT * FROM `tbl_student` WHERE course_id = $index";
+                                            $index = $row['school_id'];
+                                            $code = $row['school_code'];
+                                            $descreption = $row['school_description'];
+                                            $sql = "SELECT * FROM `tbl_course` WHERE school_id = $index";
                                             $records2=mysqli_query($con,$sql);
                                            
                                             $total_students=0;
@@ -302,45 +302,30 @@ include('../shared/connection.php');
             </div>
         </div>
     </div>
-    <div class="modal fade" id="AddCourseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="addSchoolModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Course</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add New School</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="" name='addCourse'>
+                <form action="" name='addSchool'>
                 <div class="modal-body">
-                <br>
-                        <select id="school" class="form-control bg-light border-0 small" >
-                        <?php          
-                            $sql = "SELECT * FROM `tbl_schools`  \n"
-                                . "ORDER BY `tbl_schools`.`school_description` ASC;";
-                            $school_records=mysqli_query($con,$sql);
-                                        
-                            while($school_select=mysqli_fetch_assoc($school_records)){
-                                $school_id = $school_select['school_id'];
-                                $school_description = $school_select['school_description'];
-                                echo "<option value='$school_id'>$school_id $school_description</option>";
-                            };
-                            ?>
-                           
-                        </select>
-                        <br>
-                    <input id='course_name' type="text" class="form-control bg-light border-0 small" placeholder="Course Name"
+                
+                    <input id='course_name' type="text" class="form-control bg-light border-0 small" placeholder="School Name"
                         aria-label="Search" aria-describedby="basic-addon2">
                         <br>
-                    <input id='course_code' type="text" class="form-control bg-light border-0 small" placeholder="Course Code eg BCS"
+                    <input id='course_code' type="text" class="form-control bg-light border-0 small" placeholder="School Code eg SCS"
                         aria-label="Search" aria-describedby="basic-addon2">
                         <br>
                        
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button  id='addCourse'  class="btn btn-primary" type="button" >Add Course</button>
+                        <button  id='addSchool'  class="btn btn-primary" type="button" >Add School</button>
                         
                     </div>
                 </form>

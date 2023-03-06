@@ -63,7 +63,11 @@ $user = $_SESSION['admin_username']
             <div class="sidebar-heading">
                 Manage
             </div>
-
+            <li class="nav-item">
+                <a class="nav-link" href="schools.php">
+                    <i class="fas fa-fw fa-graduation-cap"></i>
+                    <span>Schools</span></a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="course.php">
                     <i class="fas fa-fw fa-certificate"></i>

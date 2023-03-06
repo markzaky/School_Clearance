@@ -41,7 +41,9 @@ switch($operation){
     case 3:
       $name = $_POST['name'];
       $code = $_POST['code'];
-      $insert_course="INSERT INTO tbl_course (course_code,course_description) values ('$code','$name')";
+      $school = $_POST['school'];
+   
+      $insert_course="INSERT INTO tbl_course (course_code,course_description,school_id) values ('$code','$name','$school')";
       mysqli_query($con,$insert_course) or die(mysqli_error($con));
       echo($name);
       break;
@@ -68,6 +70,13 @@ switch($operation){
       mysqli_query($con,$insert) or die(mysqli_error($con));
       echo($deliverable_desc);
       break;
+      case 6:
+        $name = $_POST['name'];
+        $code = $_POST['code'];
+        $insert_course="INSERT INTO tbl_schools (school_code,school_description) values ('$code','$name')";
+        mysqli_query($con,$insert_course) or die(mysqli_error($con));
+        echo($name);
+        break;
   }
 
 
