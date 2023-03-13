@@ -274,7 +274,7 @@ include('../shared/connection.php');
                                                 if ($clearance_status == 1){
                                                     $sql = "UPDATE tbl_student SET account_status='1' WHERE student_id=$index";
                                                     if ($con->query($sql) === TRUE) {
-                                                        // echo "Password Updated";
+                                                        echo "Password Updated";
                                                     } else {
                                                         echo "Error updating record: " . $con->error;
                                                     }
@@ -282,7 +282,7 @@ include('../shared/connection.php');
                                                 else{
                                                     $sql = "UPDATE tbl_student SET account_status='0' WHERE student_id=$index";
                                                     if ($con->query($sql) === TRUE) {
-                                                        // echo "Password Updated";
+                                                        echo "Password Updated";
                                                     } else {
                                                         echo "Error updating record: " . $con->error;
                                                     }
