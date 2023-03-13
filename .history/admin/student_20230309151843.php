@@ -266,27 +266,11 @@ include('../shared/connection.php');
                                             $contact = $student['contact'];
                                             $email_address = $student['email_address'];
 
-                                            $check = "SELECT * FROM tbl_list_deliverable WHERE student_id = $index \n"
-                                            . "ORDER BY `tbl_list_deliverable`.`status` ASC;";
+                                            $check = "SELECT * FROM tbl_list_deliverable WHERE student_id = $index ";
                                             $clearance_records=mysqli_query($con,$check);
                                             while($clearance=mysqli_fetch_assoc($clearance_records)){
                                                 $clearance_status = $clearance['status'];
-                                                if ($clearance_status == 1){
-                                                    $sql = "UPDATE tbl_student SET account_status='1' WHERE student_id=$index";
-                                                    if ($con->query($sql) === TRUE) {
-                                                        echo "Password Updated";
-                                                    } else {
-                                                        echo "Error updating record: " . $con->error;
-                                                    }
-                                                }
-                                                else{
-                                                    $sql = "UPDATE tbl_student SET account_status='0' WHERE student_id=$index";
-                                                    if ($con->query($sql) === TRUE) {
-                                                        echo "Password Updated";
-                                                    } else {
-                                                        echo "Error updating record: " . $con->error;
-                                                    }
-                                                }
+                                                echo "<p>$clearance_status</p>";
                                             }
                                             $student_course = $student['course_id'];
                                             $sql="SELECT * FROM tbl_course WHERE course_id=$student_course";

@@ -280,13 +280,14 @@ include('../shared/connection.php');
                                                     }
                                                 }
                                                 else{
-                                                    $sql = "UPDATE tbl_student SET account_status='0' WHERE student_id=$index";
+                                                    $sql = "UPDATE tbl_student SET account_status='2' WHERE student_id=$index";
                                                     if ($con->query($sql) === TRUE) {
                                                         echo "Password Updated";
                                                     } else {
                                                         echo "Error updating record: " . $con->error;
                                                     }
                                                 }
+                                                echo "<p>$clearance_status</p>";
                                             }
                                             $student_course = $student['course_id'];
                                             $sql="SELECT * FROM tbl_course WHERE course_id=$student_course";

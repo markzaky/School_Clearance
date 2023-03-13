@@ -42,9 +42,8 @@ $id=$_SESSION['id'];
                         var email = document.changeDetails.email.value;
                         var password = document.changeDetails.password.value;
                         var passsword_confirm = document.changeDetails.passsword_confirm.value;
-                        if(password !== passsword_confirm){
-                            // alert('passwords do not match');
-                            document.getElementById("error").innerHTML="<p class = 'badge bg-danger text-white' >Passwords Do not Match</p>"
+                        if(password == passsword_confirm){
+                            alert('passwords do not match');
                             passsword_confirm = '';
                         }
                         // alert(password);
@@ -239,7 +238,7 @@ $id=$_SESSION['id'];
                                 <div class="col-xl-12 col-md-12 mb-4">
                                     <h5 class="h5 mb-2 text-gray-800"><i class="fas fa-user-lock"></i> Reset Password</h5>
                                     </div>
-                            <div class="col-xl-6 col-md-6 mb-4 ">
+                            <div class="col-xl-6 col-md-6 mb-4">
                                 <label class="text-dark">Password</label>
                                 <input id="password" type="password" class="form-control" placeholder="Enter New Password">
                             </div>
@@ -250,9 +249,6 @@ $id=$_SESSION['id'];
                             </div>
                             <div class="col-xl-6 col-md-6 mb-4">
                             <button  id='saveChanges'class="btn btn-primary" type="button" data-dismiss="modal">Save Changes</button>
-                            </div>
-                            <div class="col-xl-6 col-md-6 mb-4"  id = "error">
-
                             </div>
                         </div>
                     </form>

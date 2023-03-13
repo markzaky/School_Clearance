@@ -42,17 +42,13 @@ $id=$_SESSION['id'];
                         var email = document.changeDetails.email.value;
                         var password = document.changeDetails.password.value;
                         var passsword_confirm = document.changeDetails.passsword_confirm.value;
-                        if(password !== passsword_confirm){
-                            // alert('passwords do not match');
-                            document.getElementById("error").innerHTML="<p class = 'badge bg-danger text-white' >Passwords Do not Match</p>"
-                            passsword_confirm = '';
-                        }
+                        if(password == passsword_confirm)
                         // alert(password);
-                        // $course = $_SESSION['course'];
+                        $course = $_SESSION['course'];
                         $.ajax({
                             type:"post",
                             url:"operations/clearance_operation.php",
-                            data:{operation_id:3,user_id:user_id, phone:phone, email:email,password:passsword_confirm},
+                            data:{operation_id:3,user_id:user_id, phone:phone, email:email,password:password},
                             success:function(result){
                                 // swal("",(result),"success");
                                 alert(result);
@@ -239,7 +235,7 @@ $id=$_SESSION['id'];
                                 <div class="col-xl-12 col-md-12 mb-4">
                                     <h5 class="h5 mb-2 text-gray-800"><i class="fas fa-user-lock"></i> Reset Password</h5>
                                     </div>
-                            <div class="col-xl-6 col-md-6 mb-4 ">
+                            <div class="col-xl-6 col-md-6 mb-4">
                                 <label class="text-dark">Password</label>
                                 <input id="password" type="password" class="form-control" placeholder="Enter New Password">
                             </div>
@@ -250,9 +246,6 @@ $id=$_SESSION['id'];
                             </div>
                             <div class="col-xl-6 col-md-6 mb-4">
                             <button  id='saveChanges'class="btn btn-primary" type="button" data-dismiss="modal">Save Changes</button>
-                            </div>
-                            <div class="col-xl-6 col-md-6 mb-4"  id = "error">
-
                             </div>
                         </div>
                     </form>

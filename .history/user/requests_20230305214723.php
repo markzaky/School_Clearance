@@ -8,6 +8,7 @@ if(!isset($_SESSION['username'])){
 <?php
 $department_id=$_SESSION['department'];
 $name=$_SESSION['name'];
+// $deliverable=$_POST['deliverable'];
 $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE 
     department_id='$department_id'");
     $row = mysqli_fetch_assoc($query);
@@ -35,25 +36,29 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-<script src="../jquery-3.2.1.min.js"></script>
-<script>
-    $(function(){
-    $('.view_request').click(function(){
-                        var deliverable_id=$(this).closest("td").find(".idx").val();
-                        alert(deliverable_id);
-                        $.ajax({
-                            type:"post",
-                            url:"requests.php",
-                            data:{deliverable:deliverable_id},
-                            success:function(result){
-                                // swal("",(result),"success");
-                                // alert(result);
-                                // window.location.href = ("requests.php");
+<script src="../js/jquery-3.2.1.min.js"></script>
 
-                            }
-                        });
-                    })
-                });
+<script>
+
+    $(function(){
+        
+        // Approve a request
+        $(".approveRequst").click(function(){
+            var request_id=$(this).closest("td").find(".idx").val();
+            alert(request_id);
+            $.ajax({
+                type:"post",
+                url:"../operations/department_operation.php",
+                data:{operation_id:1,request_id:request_id},
+                success:function(result){
+                    alert(result);
+                    window.location.href = ("requests.php");
+
+                }
+            });
+
+        })
+    })
 </script>
 <body id="page-top">
 
@@ -89,17 +94,17 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                 Manage
             </div>
 
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="deliverable.php">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Deliverables</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="requests.php">
                     <i class="fas fa-fw fa-file-word"></i>
-                    <span>Request</span></a>
+                    <span>Requests</span></a>
             </li>
-            
+           
             <!-- if ($department_id==1){
                 echo '<li class="nav-item">
                 <a class="nav-link" href="fees.php">
@@ -109,7 +114,7 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
 
             }
             
-             -->
+            ?> -->
             <!-- <li class="nav-item">
                 <a class="nav-link" href="module.php">
                     <i class="fas fa-fw fa-file"></i>
@@ -162,14 +167,14 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo($name)?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo($department_name)?></span>
                                 <img class="img-profile rounded-circle"
                                     src="../assets/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <!-- <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -181,7 +186,7 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
                                 </a>
-                                <div class="dropdown-divider"></div> -->
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -198,67 +203,100 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-file"></i><?php echo($department_name)?>  Deliverables</h1>
+                    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-file"></i><?php echo($department_name)?>  Requests</h1>
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Requirement Name</th>
-                                            <th>Description</th>
-                                            <th>Requests</th>
+                                            <th>Requirement</th>
+                                            <th>Request Date</th>
+                                            <th>Student Name</th>
+                                            <th>Student index</th>
+                                            <th>Request Status</th>
+                                            <th>Action</th>
                                             
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Requirement Name</th>
-                                            <th>Description</th>
-                                            <th>Requests</th>
+                                            <th>Requirement</th>
+                                            <th>Request Date</th>
+                                            <th>Student Name</th>
+                                            <th>Student index</th>
+                                            <th>Request Status</th>
+                                            <th>Action</th>
                                             
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <?php 
-                                        $sql="SELECT * FROM tbl_deliverable WHERE department_id=$department_id";
+                                        $sql="SELECT * FROM tbl_list_deliverable WHERE department_id=$department_id";
                                         $records=mysqli_query($con,$sql);
                                         while($row=mysqli_fetch_assoc($records)){
                                         $index = $row['deliverable_id'];
-                                            $sql = "SELECT COUNT(*) AS count FROM tbl_list_deliverable WHERE deliverable_id='$index'";
-                                            $result = $con->query($sql);
+                                        $student_id = $row['student_id'];
+                                        $status = $row['status'];
+                                        $clearance_request_id = $row['list_id'];
 
-                                            if ($result->num_rows > 0) {
-                                                while($row1 = $result->fetch_assoc()) {
-                                                    $requests = $row1["count"];
-                                                }
-                                            } else {
-                                                $requests = 0;
-                                            }
-                                            echo "<tr>
+                                        $sql1="SELECT * FROM tbl_student WHERE student_id=$student_id";
+                                        $student_records=mysqli_query($con,$sql1);
+                                        $student=mysqli_fetch_assoc($student_records);
+
+                                        $sql2="SELECT * FROM tbl_deliverable WHERE deliverable_id=$index";
+                                        $deliverable_records=mysqli_query($con,$sql2);
+                                        $deliverable=mysqli_fetch_assoc($deliverable_records);
+                                        echo "<tr>
                                             <td>";
                                                 
-                                                echo ""." ".$row['requirement_name']." ".""."";
+                                        echo ""." ".$deliverable['requirement_name']." ".""."";
                                         echo"       
                                             </td>
                                             <td>";
                                                
-                                                echo ""." ".$row['description']." ".""."";
+                                                echo ""." ".$row['request_date']." ".""."";
                                         echo"
                                             </td>
                                             <td>";
-                                            echo "<a href='requests.php' class='view_request btn btn-primary btn-icon-split float-right'>
-                                                     <span class='icon text-white-50'>
-                                                         <i class='fas fa-chalkboard-teacher'></i>
-                                                     </span>
-                                                     <span class='text'>$requests</span>
-                                                     
-                                                 </a>
-                                                 <input type='hidden' name='text' class= 'idx' value='$index'>
-                                                 ";
+                                            echo ""." ".$student['first_name']." ".""."";
+                                            echo ""." ".$student['last_name']." ".""."";
+
                                             echo"
                                             </td>
-                                            ";
+                                             <td>";
+                                             echo ""." ".$student['student_id_number']." ".""."";
+                                            
+                                            echo"
+                                            </td>
+                                            <td>";
+                                            if ($status == 1){
+                                                echo "<span class='badge bg-success text-white'>cleared</span>";
+                                            }
+                                            elseif ($status == 2){
+                                                echo "<span class='badge bg-success text-white'>Requirements Not Met</span>";
+                                            }
+                                            elseif ($status == 3){
+                                                echo "<span class='badge bg-success text-white'>Require Manual Approval</span>";
+                                            }
+                                            
+                                            echo'
+                                            </td>
+                                            <td>';
+                                                    if ($status == 1){
+                                                        echo "<span class='badge bg-success text-white'>cleared</span>";
+                                                    }
+                                                    elseif($status == 2){
+                                                        echo "
+                                                        <a href='#' class='send_request btn btn-primary btn-icon-split  ' data-toggle='modal' data-target='#request_model'>Send Request</a>
+                                                        <input type='hidden' name='text' class= 'idx' value='$clearance_request_id'>
+                                                        ";
+                                                    }elseif($status == 3){
+                                                        echo "<a href='#' class='approveRequst btn btn-primary btn-icon-split ' data-toggle='modal' data-target='#approveModal'>Aprove Request</a>
+                                                        <input type='hidden' name='text' class= 'idx' value='$clearance_request_id'>";
+                                                    };
+                                        echo'    
+                                            </td>';
                                         //     echo'<tr>
                                         //     <td></td>
                                         //     <td>Maecenas dapibus dignissim nunc, vitae hendrerit metus blandit vel.</td>
@@ -315,7 +353,25 @@ $query = mysqli_query($con, "SELECT * FROM tbl_department WHERE
             </div>
         </div>
     </div>
-
+    <!-- Approve request Model -->
+    <div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Request Approved</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">The student request has been aproved sucessfully.</div>
+                <div class="modal-footer">
+                    <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" id = "approveRequst" href="#"></a> -->
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Bootstrap core JavaScript-->
     <script src="../assets/vendor/jquery/jquery.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

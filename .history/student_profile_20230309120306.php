@@ -243,16 +243,15 @@ $id=$_SESSION['id'];
                                 <label class="text-dark">Password</label>
                                 <input id="password" type="password" class="form-control" placeholder="Enter New Password">
                             </div>
-                            
+                            <div  id = "error">
+
+                            </div>
                             <div class="col-xl-6 col-md-6 mb-4">
                                 <label class="text-dark">Repeat Password</label>
                                 <input id="passsword_confirm" type="password" class="form-control" placeholder="Re-enter Password">
                             </div>
                             <div class="col-xl-6 col-md-6 mb-4">
                             <button  id='saveChanges'class="btn btn-primary" type="button" data-dismiss="modal">Save Changes</button>
-                            </div>
-                            <div class="col-xl-6 col-md-6 mb-4"  id = "error">
-
                             </div>
                         </div>
                     </form>

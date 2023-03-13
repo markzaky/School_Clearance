@@ -93,14 +93,14 @@ case 3:
         }
         $phone = '';
     }
-    if(!empty($email)){
-        $sql = "UPDATE tbl_student SET email_address='$email' WHERE student_id=$userid";
+    if(!empty($phone)){
+        $sql = "UPDATE tbl_student SET contact='$phone' WHERE student_id=$userid";
         if ($con->query($sql) === TRUE) {
-            echo "Email  Updated";
+            echo "Phone Number Updated";
         } else {
             echo "Error updating record: " . $con->error;
         }
-        $email = '';
+        $phone = '';
     }
     if(empty($phone) && empty($email)){
         if(!empty($password)){

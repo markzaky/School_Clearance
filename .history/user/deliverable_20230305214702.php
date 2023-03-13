@@ -1,3 +1,19 @@
+<?php session_start();
+include('../shared/connection.php');
+if(!isset($_SESSION['username'])){
+    header("location:../index.php");
+    exit();
+}
+?>
+<?php
+$department_id=$_SESSION['department'];
+$name=$_SESSION['name'];
+$query = mysqli_query($con, "SELECT * FROM tbl_department WHERE 
+    department_id='$department_id'");
+    $row = mysqli_fetch_assoc($query);
+    $department_name = $row['department_name']
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +35,26 @@
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<script src="../jquery-3.2.1.min.js"></script>
+<script>
+    $(function(){
+    $('.view_request').click(function(){
+                        var deliverable_id=$(this).closest("td").find(".idx").val();
+                        alert(deliverable_id);
+                        $.ajax({
+                            type:"post",
+                            url:"requests.php",
+                            data:{deliverable:deliverable_id},
+                            success:function(result){
+                                // swal("",(result),"success");
+                                // alert(result);
+                                // window.location.href = ("requests.php");
 
+                            }
+                        });
+                    })
+                });
+</script>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -41,7 +76,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -54,26 +89,37 @@
                 Manage
             </div>
 
-            <li class="nav-item ">
-                <a class="nav-link" href="deliverable.html">
+            <li class="nav-item active">
+                <a class="nav-link" href="deliverable.php">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Deliverables</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="upload.html">
+                <a class="nav-link" href="requests.php">
                     <i class="fas fa-fw fa-file-word"></i>
-                    <span>Uploaded Files</span></a>
+                    <span>Request</span></a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="module.html">
+            
+            <!-- if ($department_id==1){
+                echo '<li class="nav-item">
+                <a class="nav-link" href="fees.php">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Fees </span></a>
+            </li>';
+
+            }
+            
+             -->
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="module.php">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Module </span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="message.html">
+                <a class="nav-link" href="message.php">
                     <i class="fas fa-fw fa-comment"></i>
                     <span>Message</span></a>
-            </li>
+            </li> -->
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -116,7 +162,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">John Doe</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo($name)?></span>
                                 <img class="img-profile rounded-circle"
                                     src="../assets/img/undraw_profile.svg">
                             </a>
@@ -152,70 +198,81 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-file"></i> Approve and Disapprove Module </h1>
+                    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-file"></i><?php echo($department_name)?>  Deliverables</h1>
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Student/Faculty Name</th>
-                                            <th>Deliverable Name</th>
-                                            <th>Status</th>
-                                            <th>Message</th>
-                                            <th>Action</th>
+                                            <th>Requirement Name</th>
+                                            <th>Description</th>
+                                            <th>Requests</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Student/Faculty Name</th>
-                                            <th>Deliverable Name</th>
-                                            <th>Status</th>
-                                            <th>Message</th>
-                                            <th>Action</th>
+                                            <th>Requirement Name</th>
+                                            <th>Description</th>
+                                            <th>Requests</th>
+                                            
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>Requirements 101</td>
-                                            <td>Deliverable Name 1</td>
-                                            <td><span class="badge bg-success text-white">cleared</span></td>
-                                            <td>Maecenas dapibus dignissim nunc, vitae hendrerit metus blandit vel.</td>
-                                            
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Requirements 101</td>
-                                            <td>Deliverable Name 2</td>
-                                            <td><span class="badge bg-success text-white">cleared</span></td>
-                                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                                            
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Requirements 101</td>
-                                            <td>Deliverable Name 3</td>
-                                            <td><span class="badge bg-danger text-white">not cleared</span></td>
-                                            <td>Duis pulvinar facilisis tellus a luctus.</td>
-                                            
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Requirements 101</td>
-                                            <td>Deliverable Name 4</td>
-                                            <td><span class="badge bg-success text-white">cleared</span></td>
-                                            <td>Aenean tristique mollis luctus.</td>
-                                            
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Requirements 101</td>
-                                            <td>Deliverable Name 5</td>
-                                            <td><span class="badge bg-danger text-white">not cleared</span></td>
-                                            <td>Fusce gravida scelerisque maximus.</td>
-                                            
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
+                                        <?php 
+                                        $sql="SELECT * FROM tbl_deliverable WHERE department_id=$department_id";
+                                        $records=mysqli_query($con,$sql);
+                                        while($row=mysqli_fetch_assoc($records)){
+                                        $index = $row['deliverable_id'];
+                                            $sql = "SELECT COUNT(*) AS count FROM tbl_list_deliverable WHERE deliverable_id='$index'";
+                                            $result = $con->query($sql);
+
+                                            if ($result->num_rows > 0) {
+                                                while($row1 = $result->fetch_assoc()) {
+                                                    $requests = $row1["count"];
+                                                }
+                                            } else {
+                                                $requests = 0;
+                                            }
+                                            echo "<tr>
+                                            <td>";
+                                                
+                                                echo ""." ".$row['requirement_name']." ".""."";
+                                        echo"       
+                                            </td>
+                                            <td>";
+                                               
+                                                echo ""." ".$row['description']." ".""."";
+                                        echo"
+                                            </td>
+                                            <td>";
+                                            echo "<a href='requests.php' class='view_request btn btn-primary btn-icon-split float-right'>
+                                                     <span class='icon text-white-50'>
+                                                         <i class='fas fa-chalkboard-teacher'></i>
+                                                     </span>
+                                                     <span class='text'>$requests</span>
+                                                     
+                                                 </a>
+                                                 <input type='hidden' name='text' class= 'idx' value='$index'>
+                                                 ";
+                                            echo"
+                                            </td>
+                                            ";
+                                        //     echo'<tr>
+                                        //     <td></td>
+                                        //     <td>Maecenas dapibus dignissim nunc, vitae hendrerit metus blandit vel.</td>
+                                        //     <td><a href="#" class="btn btn-primary btn-icon-split float-right">
+                                        //         <span class="icon text-white-50">
+                                        //             <i class="fas fa-file-word"></i>
+                                        //         </span>
+                                        //         <span class="text">View File</span>
+                                        //     </a></td>
+                                        //     <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
+                                        // </tr>';
+                                        }
+                                        ?>
+                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -253,7 +310,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../index.html">Logout</a>
+                    <a class="btn btn-primary" href="../index.php">Logout</a>
                 </div>
             </div>
         </div>

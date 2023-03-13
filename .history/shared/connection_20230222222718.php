@@ -1,5 +1,5 @@
 <?php
-$hostname='localhost';
+   $hostname='localhost';
 $user = 'root';
 $password = '';
 $mysql_database = 'clearance';

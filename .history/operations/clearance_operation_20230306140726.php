@@ -84,34 +84,9 @@ case 3:
     $phone = $_POST['phone'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    if(!empty($phone)){
-        $sql = "UPDATE tbl_student SET contact='$phone' WHERE student_id=$userid";
-        if ($con->query($sql) === TRUE) {
-            echo "Phone Number Updated";
-        } else {
-            echo "Error updating record: " . $con->error;
-        }
-        $phone = '';
-    }
-    if(!empty($email)){
-        $sql = "UPDATE tbl_student SET email_address='$email' WHERE student_id=$userid";
-        if ($con->query($sql) === TRUE) {
-            echo "Email  Updated";
-        } else {
-            echo "Error updating record: " . $con->error;
-        }
-        $email = '';
-    }
+    echo($email);
     if(empty($phone) && empty($email)){
-        if(!empty($password)){
-        $sql = "UPDATE tbl_student SET password='$password' WHERE student_id=$userid";
-        if ($con->query($sql) === TRUE) {
-            echo "Password Updated";
-        } else {
-            echo "Error updating record: " . $con->error;
-        }
         echo($password);
-    }
     }
  break;
 default: echo "Error";

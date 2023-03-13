@@ -239,6 +239,9 @@ $id=$_SESSION['id'];
                                 <div class="col-xl-12 col-md-12 mb-4">
                                     <h5 class="h5 mb-2 text-gray-800"><i class="fas fa-user-lock"></i> Reset Password</h5>
                                     </div>
+                                    <div class="col-xl-6 col-md-6 mb-4"  id = "error">
+
+                            </div>
                             <div class="col-xl-6 col-md-6 mb-4 ">
                                 <label class="text-dark">Password</label>
                                 <input id="password" type="password" class="form-control" placeholder="Enter New Password">
@@ -251,9 +254,7 @@ $id=$_SESSION['id'];
                             <div class="col-xl-6 col-md-6 mb-4">
                             <button  id='saveChanges'class="btn btn-primary" type="button" data-dismiss="modal">Save Changes</button>
                             </div>
-                            <div class="col-xl-6 col-md-6 mb-4"  id = "error">
-
-                            </div>
+                            
                         </div>
                     </form>
                         </div>

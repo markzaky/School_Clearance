@@ -1,3 +1,19 @@
+<?php session_start();
+include('../shared/connection.php');
+if(!isset($_SESSION['username'])){
+    header("location:../index.php");
+    exit();
+}
+?>
+<?php
+$department_id=$_SESSION['department'];
+$name=$_SESSION['name'];
+$query = mysqli_query($con, "SELECT * FROM tbl_department WHERE 
+    department_id='$department_id'");
+    $row = mysqli_fetch_assoc($query);
+    $department_name = $row['department_name']
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +35,26 @@
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<script src="../jquery-3.2.1.min.js"></script>
+<script>
+    $(function(){
+    $('.view_request').click(function(){
+                        var deliverable_id=$(this).closest("td").find(".idx").val();
+                        alert(deliverable_id);
+                        $.ajax({
+                            type:"post",
+                            url:"requests.php",
+                            data:{deliverable:deliverable_id},
+                            success:function(result){
+                                // swal("",(result),"success");
+                                // alert(result);
+                                // window.location.href = ("requests.php");
 
+                            }
+                        });
+                    })
+                });
+</script>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -29,7 +64,7 @@
         <ul class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
@@ -54,17 +89,28 @@
                 Manage
             </div>
 
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="deliverable.php">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Deliverables</span></a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="upload.php">
-                    <i class="fas fa-fw fa-file-word"></i>
-                    <span>Uploaded Files</span></a>
-            </li>
             <li class="nav-item">
+                <a class="nav-link" href="requests.php">
+                    <i class="fas fa-fw fa-file-word"></i>
+                    <span>Request</span></a>
+            </li>
+            
+            <!-- if ($department_id==1){
+                echo '<li class="nav-item">
+                <a class="nav-link" href="fees.php">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Fees </span></a>
+            </li>';
+
+            }
+            
+             -->
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="module.php">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Module </span></a>
@@ -73,7 +119,7 @@
                 <a class="nav-link" href="message.php">
                     <i class="fas fa-fw fa-comment"></i>
                     <span>Message</span></a>
-            </li>
+            </li> -->
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -116,14 +162,14 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">John Doe</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo($name)?></span>
                                 <img class="img-profile rounded-circle"
                                     src="../assets/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <!-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -135,7 +181,7 @@
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
                                 </a>
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div> -->
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -152,7 +198,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-file-word"></i> Uploaded Files</h1>
+                    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-file"></i><?php echo($department_name)?>  Deliverables</h1>
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
@@ -160,75 +206,73 @@
                                     <thead>
                                         <tr>
                                             <th>Requirement Name</th>
-                                            <th>File Upload</th>
-                                            <th>Student/Faculty</th>
-                                            <th>Action</th>
+                                            <th>Description</th>
+                                            <th>Requests</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Requirement Name</th>
-                                            <th>File Upload</th>
-                                            <th>Student/Faculty</th>
-                                            <th>Action</th>
+                                            <th>Description</th>
+                                            <th>Requests</th>
+                                            
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>Requirements 101</td>
-                                            <td><a href="#" class="btn btn-info btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-file-powerpoint fa-2x"></i>
-                                                </span>
-                                                <span class="text">View File</span>
-                                            </a></td>
-                                            <td>Quinn Flynn</td>
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Requirements 101</td>
-                                            <td><a href="#" class="btn btn-info btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-file-word fa-2x"></i>
-                                                </span>
-                                                <span class="text">View File</span>
-                                            </a></td>
-                                            <td>Cedric Kelly</td>
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Requirements 101</td>
-                                            <td><a href="#" class="btn btn-info btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-file-word fa-2x"></i>
-                                                </span>
-                                                <span class="text">View File</span>
-                                            </a></td>
-                                            <td>Charde Marshall</td>
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Requirements 101</td>
-                                            <td><a href="#" class="btn btn-info btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-file-excel fa-2x"></i>
-                                                </span>
-                                                <span class="text">View File</span>
-                                            </a></td>
-                                            <td>Ashton Cox</td>
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Requirements 101</td>
-                                            <td><a href="#" class="btn btn-info btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-file-word fa-2x"></i>
-                                                </span>
-                                                <span class="text">View File</span>
-                                            </a></td>
-                                            <td>Garrett Winters</td>
-                                            <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
-                                        </tr>
+                                        <?php 
+                                        $sql="SELECT * FROM tbl_deliverable WHERE department_id=$department_id";
+                                        $records=mysqli_query($con,$sql);
+                                        while($row=mysqli_fetch_assoc($records)){
+                                        $index = $row['deliverable_id'];
+                                            $sql = "SELECT COUNT(*) AS count FROM tbl_list_deliverable WHERE deliverable_id='$index'";
+                                            $result = $con->query($sql);
+
+                                            if ($result->num_rows > 0) {
+                                                while($row1 = $result->fetch_assoc()) {
+                                                    $requests = $row1["count"];
+                                                }
+                                            } else {
+                                                $requests = 0;
+                                            }
+                                            echo "<tr>
+                                            <td>";
+                                                
+                                                echo ""." ".$row['requirement_name']." ".""."";
+                                        echo"       
+                                            </td>
+                                            <td>";
+                                               
+                                                echo ""." ".$row['description']." ".""."";
+                                        echo"
+                                            </td>
+                                            <td>";
+                                            echo "<a href='requests.php' class='view_request btn btn-primary btn-icon-split float-right'>
+                                                     <span class='icon text-white-50'>
+                                                         <i class='fas fa-chalkboard-teacher'></i>
+                                                     </span>
+                                                     <span class='text'>$requests</span>
+                                                     
+                                                 </a>
+                                                 <input type='hidden' name='text' class= 'idx' value='$index'>
+                                                 ";
+                                            echo"
+                                            </td>
+                                            ";
+                                        //     echo'<tr>
+                                        //     <td></td>
+                                        //     <td>Maecenas dapibus dignissim nunc, vitae hendrerit metus blandit vel.</td>
+                                        //     <td><a href="#" class="btn btn-primary btn-icon-split float-right">
+                                        //         <span class="icon text-white-50">
+                                        //             <i class="fas fa-file-word"></i>
+                                        //         </span>
+                                        //         <span class="text">View File</span>
+                                        //     </a></td>
+                                        //     <td><i class="fas fa-fw fa-edit"></i> | <i class="fas fa-fw fa-trash"></i></td>
+                                        // </tr>';
+                                        }
+                                        ?>
+                                       
                                     </tbody>
                                 </table>
                             </div>

@@ -96,7 +96,7 @@ case 3:
     if(!empty($email)){
         $sql = "UPDATE tbl_student SET email_address='$email' WHERE student_id=$userid";
         if ($con->query($sql) === TRUE) {
-            echo "Email  Updated";
+            echo "em$email Number Updated";
         } else {
             echo "Error updating record: " . $con->error;
         }
